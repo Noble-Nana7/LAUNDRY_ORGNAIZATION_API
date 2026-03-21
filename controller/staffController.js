@@ -1,4 +1,4 @@
-const {Staff}=require('../models')
+const {Staff, Organisation }=require('../models')
 const fs = require('fs')
 // const cloudinary = require('../middlewares/cloudinary')
 const {sendToCloudinary} = require('../helpers/helper')
@@ -6,28 +6,36 @@ const {sendToCloudinary} = require('../helpers/helper')
 
  exports.addStaff = async (req, res) => {
   try {
-    console.log('hello')
+    const { organisationId } = req.params
+
+    const findOrg = await Organisation.findByPk(organisationId)
+    if (!findOrg) {
+        return res.status(404).json({
+            message: `Organisation not found`
+        })
+    }
+    console.log(findOrg)
     const files = req.files
     console.log(files)
     const response = await sendToCloudinary(files)
     console.log(response)
 
-    await Promise.all(
-        files.map(e => fs.unlink(e.path))
-    );
+    // await Promise.all(
+    //     files.map(e => fs.unlink(e.path))
+    // );
 
-    const { name, position, salary, organizationId } = req.body;
+    const { staffName, staffAge, staffPosition, staffSalary } = req.body;
 
     const staffData = {
-      name,
-      position,
-      salary,
-      organizationId,
-      staffDp: dpResult.secure_url,
-      profilePhoto: profileResult.secure_url
+      staffName,
+      staffAge,
+      staffPosition,
+      staffSalary,
+      organisationId,
+      staffProfilePicture: response
     };
 
-    const staff = await staffModel.create(staffData);
+    const staff = await Staff.create(staffData);
 
     res.status(201).json({
       message: "Staff added successfully",
