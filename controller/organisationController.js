@@ -15,20 +15,22 @@ exports.createOrganisation = async(req, res) =>{
                 console.log(result)
             };})
        
-        const extractSecureurl = uploadToCloudinary.secure_url
-        console.log(`hello: `, extractSecureurl)
+        const response = [{
+            secureUrl: uploadToCloudinary.secure_url,
+            publicId: uploadToCloudinary.public_id
+        }]
         fs.unlinkSync(filePath)
 
         
 
         const {organisationName,organisationAddress,organisationEmail,organizationPhoneNumber}= req.body
-        const valEmail = organisationEmail.includes('@') && organisationEmail.includes('.com')
+        // const valEmail = organisationEmail.includes('@') && organisationEmail.includes('.com')
         const newOrgan = await Organisation.create({
             organisationName,
             organisationAddress,
-            organisationEmail: valEmail,
+            organisationEmail,
             organizationPhoneNumber,
-            organisationLogo: extractSecureurl
+            organisationLogo: response
         })
 
         res.status(201).json({
