@@ -3,11 +3,13 @@ const express = require('express');
 const PORT = process.env.PORT ;
 const sequelize = require('./database/sequelize')
 const router = require('./routes/organisationRoute')
+const staffRouter = require('./routes/staffRoute')
 // const multer = require('multer')
 
 const app = express()
-// app.use(express.json())
+app.use(express.json())
 app.use(router)
+app.use(staffRouter)
 // log multer error
 app.use((err, req, res, next)=> {
     if (err) {
