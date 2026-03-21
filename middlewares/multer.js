@@ -18,7 +18,7 @@ exports.upload = multer({
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
             cb(new Error('Invalid Image Format'))
-        } else {
+        } else { 
             cb(null, true)
         }
     }
