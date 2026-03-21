@@ -7,7 +7,7 @@ exports.upload = multer({
         },
         filename: (req, file, cb) => {
             console.log('multer');
-            
+
             const uniqueSuffix = new Date().getTime() + '-' + Math.round(Math.random() + 1E6)
             cb(null, file.filename + '-' + uniqueSuffix + '-' + file.mimetype.split('/')[1])
         }
@@ -17,6 +17,8 @@ exports.upload = multer({
     },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
+            cb(new Error('Invalid Image Format'))
+        } else {
             cb(null, true)
         }
     }
