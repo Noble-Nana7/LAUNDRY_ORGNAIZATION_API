@@ -2,14 +2,20 @@ require('dotenv').config()
 const express = require('express'); 
 const PORT = process.env.PORT ;
 const sequelize = require('./database/sequelize')
-const router = require('./routes/organisationRoute')
+const organisationRouter = require('./routes/organisationRoute')
 const staffRouter = require('./routes/staffRoute')
+const equipmentRouter = require('./routes/equipmentRoute')
+const orderRouter = require('./routes/orderRoute')
+const deliveryRouter = require('./routes/deliveryRoute')
 // const multer = require('multer')
 
 const app = express()
 app.use(express.json())
-app.use(router)
+app.use(organisationRouter)
 app.use(staffRouter)
+app.use(equipmentRouter)
+app.use(orderRouter)
+app.use(deliveryRouter)
 // log multer error
 app.use((err, req, res, next)=> {
     if (err) {

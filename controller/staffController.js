@@ -20,9 +20,9 @@ const {sendToCloudinary} = require('../helpers/helper')
     const response = await sendToCloudinary(files)
     console.log(response)
 
-    // await Promise.all(
-    //     files.map(e => fs.unlink(e.path))
-    // );
+    await Promise.all(
+        files.map(e => fs.unlinkSync(e.path))
+    );
 
     const { staffName, staffAge, staffPosition, staffSalary } = req.body;
 

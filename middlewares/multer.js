@@ -13,7 +13,7 @@ exports.upload = multer({
         }
     }),
     limits: {
-        fileSize: 1024 * 1024 * 2
+        fileSize: 1024 * 1024 * 5
     },
     fileFilter: (req, file, cb) => {
         if (!file.mimetype.startsWith('image/')) {
