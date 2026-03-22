@@ -86,7 +86,7 @@ exports.fullOrderlistByOrg = async (req, res) => {
             attributes: ['orderType'],
             include: [{
                 model: Delivery,
-                as: 'deliveries',
+                as: 'delivery',
                 attributes: ['deliveryProcessedBy', 'deliveryStatus']
             }]
         })
