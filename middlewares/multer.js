@@ -6,7 +6,7 @@ exports.upload = multer({
             cb(null, './assets')
         },
         filename: (req, file, cb) => {
-            console.log('multer');
+            // console.log('multer');
 
             const uniqueSuffix = new Date().getTime() + '-' + Math.round(Math.random() + 1E6)
             cb(null, file.filename + '-' + uniqueSuffix + '-' + file.mimetype.split('/')[1])

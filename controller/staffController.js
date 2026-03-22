@@ -49,6 +49,21 @@ const {sendToCloudinary} = require('../helpers/helper')
   }
 };
 
+exports.getStaff = async (req, res) => {
+  try {
+    const staffList = await Staff.findAll()
+
+    res.status(200).json({
+      message: `Staff list fetched sucessfully`,
+      data: staffList
+    })
+  } catch (error) {
+    console.log(error.message),
+    res.status(500).json({
+      message: `Something went wrong`
+    })
+  }
+}
 
 
 
