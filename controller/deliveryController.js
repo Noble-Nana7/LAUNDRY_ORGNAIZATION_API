@@ -1,10 +1,8 @@
 const {Delivery, Staff, Order} = require('../models')
 const fs = require('fs')
-const orders = require('../models/order')
 
-exports.createDelivery = async(req, res) =>{
+exports.logDelivery = async(req, res) =>{
     try {
-        
         const {orderId} = req.params
         const findOrder = await Order.findByPk(orderId)
         if (!findOrder) {
@@ -15,27 +13,35 @@ exports.createDelivery = async(req, res) =>{
 
         const {deliveryProcessedBy} = req.body
 
-        const findStaffDetails = await Staff.findByPk(deliveryProcessedBy)
+        const findStaffDetails = await Staff.findAll({
+            where: {staffName: deliveryProcessedBy}
+
+            })
+        console.log(findStaffDetails)
+        const findStaff = findStaffDetails[0].dataValues;
+        console.log(`dv`, findStaff)
 
         const deliveryStatus = 'pending'
         const clothes = findOrder.orderType
-        const staffId = findStaffDetails.staffId
-        const organisationId = findStaffDetails.organisationId
-        const newDelivery = await Delivery.create({
+        const staffId = findStaff.staffId
+        // console.log(staffId)
+        const organisationId = findStaff.organisationId
+        // console.log(organisationId)
+
+        const newDelivery = {
             deliveryProcessedBy,
             deliveryStatus,
             clothes,
             orderId,
             staffId,
             organisationId
-        })
-
-        console.log(newDelivery);
+        }
         
+        const newLoggedDelivery = await Delivery.create(newDelivery)
 
         res.status(201).json({
-            message: "Delivery created successfully",
-            data: newDelivery
+            message: "Delivery logged successfully",
+            data: newLoggedDelivery
         })
     } catch (error) {
         console.log(error.message);
@@ -44,3 +50,4 @@ exports.createDelivery = async(req, res) =>{
         })
     }
 }
+

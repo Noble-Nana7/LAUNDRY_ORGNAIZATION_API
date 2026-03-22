@@ -1,8 +1,8 @@
 const router = require('express').Router()
 
 // write code here
-const { createDelivery } = require('../controller/deliveryController')
+const { logDelivery } = require('../controller/deliveryController')
 
-router.post('/delivery/:organisationId', createDelivery)
+router.post('/delivery/:orderId', logDelivery)
 
 module.exports = router
