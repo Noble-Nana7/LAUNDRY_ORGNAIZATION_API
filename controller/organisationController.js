@@ -1,5 +1,5 @@
-const {Organisation} = require('../models')
-const cloudinary = require('../middlewares/cloudinary')
+const { Organisation, Staff, Equipments, Order } = require('../models')
+// const cloudinary = require('../middlewares/cloudinary')
 const fs = require('fs')
 exports.createOrganisation = async(req, res) =>{
     try {
@@ -62,5 +62,38 @@ exports.getOrganisation = async (req, res) => {
 }
 
 exports.getFullOrganisation = async (req, res) => {
-    
-}
+    try {
+        const { organisationId } = req.params;
+        
+        const fullOrganisation = await Organisation.findAll({
+            where: { organisationId: organisationId }, // Use 'z' to match your DB column
+            include: [
+                {
+                    model: Staff,
+                    as: 'staffs',
+                    attributes: ['staffName', 'staffprofilePicture']
+                },
+                {
+                    model: Equipments,
+                    as: 'equipment',
+                    attributes: ['equipmentName', 'equipmentImage']
+                },
+                {   
+                    model: Order,
+                    as: 'orders',
+                    attributes: ['staffName']
+                }
+            ]
+        });
+
+        res.status(200).json({
+            message: `Full Organisation Information`,
+            data: fullOrganisation
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({
+            message: `Something went wrong`
+        });
+    }
+};

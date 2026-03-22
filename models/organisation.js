@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
          as: 'equipment'
       });
       models.Organisation.hasMany(models.Order, {
-         foreignKey: 'organisationId',
+         foreignKey: 'organizationId',
          as: 'orders'
         });
       models.Organisation.hasMany(models.Delivery, {
