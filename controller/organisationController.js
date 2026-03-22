@@ -44,3 +44,23 @@ exports.createOrganisation = async(req, res) =>{
         })
     }
 }
+
+exports.getOrganisation = async (req, res) => {
+    try {
+       const organisationList = await Organisation.findAll()
+       
+       res.status(200).json({
+        nessage: `Organisation list fetched sucessfully`,
+        data: organisationList
+       })
+    } catch (error) {
+        console.log(error.message),
+        res.status(500).json({
+            message: `Something went wrong`
+        })
+    }
+}
+
+exports.getFullOrganisation = async (req, res) => {
+    
+}
