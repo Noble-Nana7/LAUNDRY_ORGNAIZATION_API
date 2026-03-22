@@ -24,7 +24,7 @@ exports.createOrganisation = async(req, res) =>{
         
 
         const {organisationName,organisationAddress,organisationEmail,organizationPhoneNumber}= req.body
-        // const valEmail = organisationEmail.includes('@') && organisationEmail.includes('.com')
+       
         const newOrgan = await Organisation.create({
             organisationName,
             organisationAddress,
@@ -66,7 +66,7 @@ exports.getFullOrganisation = async (req, res) => {
         const { organisationId } = req.params;
         
         const fullOrganisation = await Organisation.findAll({
-            where: { organisationId: organisationId }, // Use 'z' to match your DB column
+            where: { organisationId: organisationId }, 
             include: [
                 {
                     model: Staff,
