@@ -1,6 +1,6 @@
 const {Staff, Organisation }=require('../models')
 const fs = require('fs')
-// const cloudinary = require('../middlewares/cloudinary')
+
 const {sendToCloudinary} = require('../helpers/helper')
  
 
@@ -64,75 +64,3 @@ exports.getStaff = async (req, res) => {
     })
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// exports.updateStaff = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { name, position, salary } = req.body;
-
-//     const staff = await staffModel.findByPk(id);
-
-//     if (!staff) {
-//       return res.status(404).json({
-//         message: "Staff not found"
-//       });
-//     }
-
-//     let staffData = {
-//       name,
-//       position,
-//       salary
-//     };
-
-
-//     if (req.files && req.files.staffDp) {
-//       const result = await cloudinary.uploader.upload(
-//         req.files.staffDp[0].path
-//       );
-//       fs.unlinkSync(req.files.staffDp[0].path);
-
-//       staffData.staffDp = result.secure_url;
-//     }
-
-//     if (req.files && req.files.profilePhoto) {
-//       const result = await cloudinary.uploader.upload(
-//         req.files.profilePhoto[0].path
-//       );
-//       fs.unlinkSync(req.files.profilePhoto[0].path);
-
-//       staffData.profilePhoto = result.secure_url;
-//     }
-
-//     await staff.update(staffData);
-
-//     res.status(200).json({
-//       message: "Staff updated successfully",
-//       data: staff
-//     });
-
-//   } catch (error) {
-//     res.status(500).json({
-//       message: error.message
-//     });
-//   }
-// };
