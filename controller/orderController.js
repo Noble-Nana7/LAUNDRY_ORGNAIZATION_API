@@ -79,7 +79,7 @@ exports.fullOrderlistByOrg = async (req, res) => {
                 message: `Organisation not found`
             })
         }
-        const orderListByOrg = Order.findAll({
+        const orderListByOrg = await Order.findAll({
             where: {
                 organizationId: organizationId
             },
@@ -90,8 +90,12 @@ exports.fullOrderlistByOrg = async (req, res) => {
                 attributes: ['deliveryProcessedBy', 'deliveryStatus']
             }]
         })
+        console.log(orderListByOrg)
 
-        res.status(200)
+        res.status(200).json({
+            message: `Information fetched suessfully`,
+            data: orderListByOrg
+        })
     } catch (error) {
         console.log(error.message),
         res.status(500).json({
